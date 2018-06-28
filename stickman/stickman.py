@@ -42,7 +42,7 @@ class Coords:
 
 def within_x(co1, co2):
     if (co1.x1 > co2.x1 and co1.x1 < co2.x2) or (co1.x2 > co2.x1 and co1.x2 < co2.x2) or (
-            co2.x1 > co1.x1 and co2.x1 < co1.x2) or (co2.x2 > co1.x1 and co2.x2 < co1.x2):
+            co2.x1 > co1.x1 and co2.x1 < co1.x2) or (co2.x2 > co1.x1 and co2.x2 < co1.x1):
         return True
     else:
         return False
@@ -50,7 +50,7 @@ def within_x(co1, co2):
 
 def within_y(co1, co2):
     if (co1.y1 > co2.y1 and co1.y1 < co2.y2) or (co1.y2 > co2.y1 and co1.y2 < co2.y2) or (
-            co2.y1 > co1.y1 and co2.y1 < co1.y2) or (co2.y2 > co1.y1 and co2.y2 < co1.y2):
+            co2.y1 > co1.y1 and co2.y1 < co1.y2) or (co2.y2 > co1.y1 and co2.y2 < co1.y1):
         return True
     else:
         return False
@@ -155,18 +155,18 @@ class StickManSprite(Sprite):
                 self.game.canvas.itemconfig(self.image, image=self.images_left[2])
             else:
                 self.game.canvas.itemconfig(self.image, image=self.images_left[self.current_image])
-        if self.x > 0:
+        elif self.x > 0:
             if self.y != 0:
                 self.game.canvas.itemconfig(self.image, image=self.images_right[2])
             else:
                 self.game.canvas.itemconfig(self.image, image=self.images_right[self.current_image])
 
     def coords(self):
-        xy = self.game.canvas.coords(self.image)
+        xy = list(self.game.canvas.coords(self.image))
         self.coordinates.x1 = xy[0]
         self.coordinates.y1 = xy[1]
         self.coordinates.x2 = xy[0] + 27
-        self.coordinates.y1 = xy[1] + 30
+        self.coordinates.y2 = xy[1] + 30
         return self.coordinates
 
     def move(self):
